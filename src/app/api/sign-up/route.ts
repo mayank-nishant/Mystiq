@@ -26,13 +26,15 @@ export async function POST(request: Request) {
       );
     }
 
-    const existingUserByEmail = await UserModel.findOne({ email });
+    const existingUserByEmail = await UserModel.findOne({
+      email,
+    });
 
     const verifyCode = Math.floor(100000 + Math.random() * 900000).toString();
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const verifyCodeExpiry = new Date(Date.now() + 3600000);
+    const verifyCodeExpiry = new Date(Date.now() + 60 * 60 * 1000);
 
     if (existingUserByEmail) {
       if (existingUserByEmail.isVerified) {
@@ -45,9 +47,11 @@ export async function POST(request: Request) {
         );
       }
 
+      existingUserByEmail.username = username;
       existingUserByEmail.password = hashedPassword;
       existingUserByEmail.verifyCode = verifyCode;
       existingUserByEmail.verifyCodeExpiry = verifyCodeExpiry;
+      existingUserByEmail.isVerified = false;
 
       await existingUserByEmail.save();
     } else {

@@ -65,7 +65,7 @@ export default function SignUpForm() {
 
       toast.success(response.data.message);
 
-      router.replace(`/verify/${username}`);
+      router.replace(`/verify/${data.username}`);
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponse>;
 
