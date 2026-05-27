@@ -1,21 +1,14 @@
 "use client";
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, ControllerRenderProps } from "react-hook-form";
 import * as z from "zod";
-
 import { signIn } from "next-auth/react";
-
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-
 import { toast } from "sonner";
-
 import { signInSchema } from "@/schemas/signInSchema";
 
 export default function SignInForm() {

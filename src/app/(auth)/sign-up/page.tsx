@@ -1,5 +1,4 @@
 "use client";
-
 import { ApiResponse } from "@/types/ApiResponse";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
@@ -7,12 +6,9 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDebounceValue } from "usehooks-ts";
 import * as z from "zod";
-
 import { Button } from "@/components/ui/button";
 import { Form, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-
 import { Input } from "@/components/ui/input";
-
 import { toast } from "sonner";
 import axios, { AxiosError } from "axios";
 import { Loader2 } from "lucide-react";
@@ -71,9 +67,9 @@ export default function SignUpForm() {
 
       router.replace(`/verify/${username}`);
     } catch (error) {
-      console.error("Error during sign-up:", error);
-
       const axiosError = error as AxiosError<ApiResponse>;
+
+      console.error("Signup Error:", axiosError.response?.data);
 
       const errorMessage = axiosError.response?.data.message || "There was a problem with your sign-up. Please try again.";
 
